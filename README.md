@@ -142,6 +142,21 @@ Software Installation:
 
     When the app is open in your web browser, it should display one entry for each garage door configured in your `config.json` file, along with the current status and timestamp from the time the status was last changed.  Click on any entry to open or close the door (each click will behave as if you pressed the garage button once).
 
+Optional Setup:
+-----
+
+1.  **Wi-Fi Auto-Reconnection Script**
+    
+    Occassionally, when using Wi-Fi, a network connection might get dropped causing access to the garage controller to become unavailable. If you are using the Raspberry Pi built in Wi-Fi interface, you can use the included connection script to re-connect when this happens.
+    
+    To use the re-connection script, modify the root crontab:
+    
+    `sudo crontab -e`
+    
+    Add the following line to check every 5 minutes for a proper connection. Replace **192.168.1.1** with the IP address of your router/gateway or another computer to check against.
+    
+    `*/5 * * * * sh /home/pi/garage-door-controller/extra/check-wifi-connection.sh 192.168.1.1 >/dev/null 2>&1`
+
 Using IFTTT and Basic API:
 ------------
 IFTTT has been implemented using a combination of sending 'alerts' to the maker channel on IFTTT and using the webhooks channel to send commands to the controller.
@@ -156,7 +171,6 @@ Close All
 ------------
 Close all button will close all doors in the open state, all other states are ignored.
 ![Screenshot_20200612-162450](https://user-images.githubusercontent.com/5156472/84547697-ad0dfb00-acc9-11ea-8175-d8ec2e5f38ba.png)
-
 
 TODO:
 ----------  
