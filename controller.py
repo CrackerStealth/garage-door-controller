@@ -51,9 +51,8 @@ class Door(object):
         self.time_to_open = config.get('time_to_open', 10)
         self.openhab_name = config.get('openhab_name')
         self.open_time = time.time()
-        gpio.setup(self.relay_pin, gpio.OUT)
+        gpio.setup(self.relay_pin, gpio.OUT, initial=gpio.LOW)
         gpio.setup(self.state_pin, gpio.IN, pull_up_down=gpio.PUD_UP)
-        gpio.output(self.relay_pin, True)
 
     def get_state(self):
         if gpio.input(self.state_pin) == self.state_pin_closed_value:
@@ -83,9 +82,9 @@ class Door(object):
             self.last_action = None
             self.last_action_time = None
 
-        gpio.output(self.relay_pin, False)
+        gpio.output(self.relay_pin, gpio.HIGH)
         time.sleep(0.2)
-        gpio.output(self.relay_pin, True)
+        gpio.output(self.relay_pin, gpio.LOW)
 
 class Controller(object):
     def __init__(self, config):
