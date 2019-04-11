@@ -142,6 +142,21 @@ Software Installation:
     
     When the app is open in your web browser, it should display one entry for each garage door configured in your `config.json` file, along with the current status and timestamp from the time the status was last changed.  Click on any entry to open or close the door (each click will behave as if you pressed the garage button once).
 
+Optional Setup:
+-----
+
+1.  **Wi-Fi Auto-Reconnection Script**
+    
+    Occassionally, when using Wi-Fi, a network connection might get dropped causing access to the garage controller to become unavailable. If you are using the Raspberry Pi built in Wi-Fi interface, you can use the included connection script to re-connect when this happens.
+    
+    To use the re-connection script, modify the root crontab:
+    
+    `sudo crontab -e`
+    
+    Add the following line to check every 5 minutes for a proper connection. Replace **192.168.1.1** with the IP address of your router/gateway or another computer to check against.
+    
+    `*/5 * * * * sh /home/pi/garage-door-controller/extra/check-wifi-connection.sh 192.168.1.1 >/dev/null 2>&1`
+
 TODO:
 ----------  
 This section contains the features I would like to add to the application, but do not currently have time for.  If someone would like to contribute changes or patches, I would be all to happy to incorporate them.
